@@ -1,0 +1,55 @@
+{
+  "@@locale": "en",
+  "appTitle": "AfriMarket",
+
+  "loginTitle": "Welcome Back!",
+  "loginSubtitle": "Sign in to continue your journey",
+  "emailLabel": "Email Address",
+  "passwordLabel": "Password",
+  "forgotPassword": "Forgot Password?",
+  "signIn": "Sign In",
+  "signUp": "Sign Up",
+  "noAccount": "Don't have an account?",
+  "haveAccount": "Already have an account?",
+
+  "productTitle": "Products",
+  "newArrivals": "New Arrivals",
+  "popularItems": "Popular Items",
+  "priceLabel": "Price",
+  "addToCart": "Add to Cart",
+  "outOfStock": "Out of Stock",
+  "seeAll": "See All →",
+
+  "cartTitle": "Your Cart",
+  "cartEmpty": "Your cart is empty",
+  "cartSubtotal": "Subtotal",
+  "checkoutButton": "Proceed to Checkout",
+
+  "paymentTitle": "Payment Method",
+  "mpesaOption": "Pay with M-Pesa",
+  "cardOption": "Credit/Debit Card",
+  "cashOnDelivery": "Cash on Delivery",
+  "payNow": "Pay Now",
+  "paymentSuccess": "Payment Successful!",
+  "paymentProcessing": "Processing your payment...",
+
+  "orderConfirmation": "Thank you for your order!",
+  "orderNumber": "Order #",
+  "orderDate": "Order Date",
+  "orderStatus": "Status",
+  "orderTracking": "Track Order",
+
+  "chatTitle": "Chat with Seller",
+  "messageHint": "Type your message...",
+  "send": "Send",
+  "onlineStatus": "Online",
+  "offlineStatus": "Offline",
+
+  "errorGeneral": "Something went wrong",
+  "errorNetwork": "Network connection lost",
+  "errorInvalidEmail": "Please enter a valid email",
+  "errorShortPassword": "Password must be at least 6 characters",
+
+  "mpesaConfirmation": "Enter M-Pesa PIN to complete payment",
+  "cashOnDeliveryNote": "Pay when your items arrive"
+}

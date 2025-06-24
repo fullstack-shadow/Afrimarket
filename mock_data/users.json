@@ -1,0 +1,43 @@
+[
+  {
+    "id": "user_001",
+    "name": "Amina Sow",
+    "email": "amina@example.com",
+    "phone": "+254712345678",
+    "role": "seller",
+    "location": {
+      "city": "Nairobi",
+      "country": "Kenya"
+    },
+    "rating": 4.7,
+    "shopId": "shop_001",
+    "createdAt": "2023-10-15T08:23:19Z"
+  },
+  {
+    "id": "user_002",
+    "name": "Kwame Mensah",
+    "email": "kwame@example.com",
+    "phone": "+233244567890",
+    "role": "buyer",
+    "location": {
+      "city": "Accra",
+      "country": "Ghana"
+    },
+    "wishlist": ["prod_003", "prod_007"],
+    "createdAt": "2023-11-02T14:45:31Z"
+  },
+  {
+    "id": "user_003",
+    "name": "Ngozi Eze",
+    "email": "ngozi@example.com",
+    "phone": "+2348012345678",
+    "role": "seller",
+    "location": {
+      "city": "Lagos",
+      "country": "Nigeria"
+    },
+    "rating": 4.9,
+    "shopId": "shop_002",
+    "createdAt": "2023-09-28T10:15:42Z"
+  }
+]

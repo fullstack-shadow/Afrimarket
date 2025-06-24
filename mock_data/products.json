@@ -1,0 +1,59 @@
+[
+  {
+    "id": "prod_001",
+    "name": "Ankara Print Dress",
+    "description": "Handmade African wax print dress with puff sleeves",
+    "price": 34.99,
+    "currency": "USD",
+    "sellerId": "user_001",
+    "category": "fashion",
+    "tags": ["women", "ankara", "dress"],
+    "images": [
+      "products/prod_001/image1.jpg",
+      "products/prod_001/image2.jpg"
+    ],
+    "stock": 15,
+    "rating": 4.5,
+    "location": "Nairobi, Kenya",
+    "sizes": ["S", "M", "L"],
+    "createdAt": "2023-11-10T09:30:00Z"
+  },
+  {
+    "id": "prod_002",
+    "name": "Shea Butter Pack",
+    "description": "Organic unrefined shea butter 500g",
+    "price": 12.50,
+    "currency": "USD",
+    "sellerId": "user_003",
+    "category": "beauty",
+    "tags": ["skincare", "natural", "organic"],
+    "images": [
+      "products/prod_002/image1.jpg"
+    ],
+    "stock": 42,
+    "rating": 4.8,
+    "location": "Lagos, Nigeria",
+    "weight": "500g",
+    "createdAt": "2023-11-05T14:20:00Z"
+  },
+  {
+    "id": "prod_003",
+    "name": "Kente Cloth Scarf",
+    "description": "Authentic Ghanaian kente cloth scarf",
+    "price": 22.75,
+    "currency": "USD",
+    "sellerId": "user_001",
+    "category": "fashion",
+    "tags": ["unisex", "kente", "scarf"],
+    "images": [
+      "products/prod_003/image1.jpg",
+      "products/prod_003/image2.jpg"
+    ],
+    "stock": 8,
+    "rating": 4.9,
+    "location": "Nairobi, Kenya",
+    "length": "180cm",
+    "createdAt": "2023-11-12T11:45:00Z"
+  }
+]
+ 

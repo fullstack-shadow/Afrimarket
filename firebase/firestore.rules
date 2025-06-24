@@ -1,0 +1,56 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow public read access to product images
+    match /products/{productId}/{imageId} {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.token.seller == true &&
+                   request.resource.size < 5 * 1024 * 1024 && // 5MB limit
+                   request.resource.contentType.matches('image/.*');
+    }
+
+    // User profile pictures
+    match /users/{userId}/profile.jpg {
+      allow read: if true;
+      allow write: if request.auth != null && 
+                   request.auth.uid == userId &&
+                   request.resource.size < 2 * 1024 * 1024 && // 2MB limit
+                   request.resource.contentType.matches('image/.*');
+    }
+
+    // Order-related documents (invoices, receipts)
+    match /orders/{orderId}/{document} {
+      allow read: if request.auth != null && 
+                  (resource.metadata.owner == request.auth.uid ||
+                   resource.metadata.seller == request.auth.uid ||
+                   request.auth.token.admin == true);
+      allow write: if request.auth != null && 
+                   request.auth.token.admin == true;
+    }
+
+    // Shop banners and logos
+    match /shops/{shopId}/branding/{file} {
+      allow read: if true;
+      allow write: if request.auth != null &&
+                   request.auth.token.seller == true &&
+                   exists(/databases/$(database)/documents/shops/$(shopId)/owners/$(request.auth.uid)) &&
+                   request.resource.size < 10 * 1024 * 1024; // 10MB limit
+    }
+
+    // Chat attachments
+    match /chats/{chatId}/attachments/{file} {
+      allow read: if request.auth != null && 
+                  (resource.metadata.participants.hasAny([request.auth.uid]));
+      allow create: if request.auth != null &&
+                    request.resource.size < 15 * 1024 * 1024 && // 15MB limit
+                    request.resource.contentType.matches('(image/.*|application/pdf|video/.*)');
+    }
+
+    // Admin-only content
+    match /admin/{allPaths=**} {
+      allow read, write: if request.auth != null && 
+                         request.auth.token.admin == true;
+    }
+  }
+}

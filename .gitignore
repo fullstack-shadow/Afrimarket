@@ -1,0 +1,21 @@
+# Flutter
+build/
+.dart_tool/
+.packages
+.pub/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# VS Code
+.vscode/
+
+# macOS/Linux
+.DS_Store
+
+# Firebase Emulator
+firebase-debug.log
+
+# Others
+*.iml
+.idea/
+ 

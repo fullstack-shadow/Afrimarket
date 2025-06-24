@@ -1,0 +1,35 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 85%
+        threshold: 2%
+    patch:
+      default:
+        target: 80%
+        threshold: 5%
+
+ignore:
+  - "lib/generated/**"
+  - "lib/**/*.g.dart"
+  - "lib/**/*.freezed.dart"
+  - "test/**"
+  - "integration_test/**"
+
+codecov:
+  require_ci_to_pass: true
+
+comment:
+  layout: "reach,diff,flags,files,footer"
+  behavior: default
+  branches: null
+
+flags:
+  unittests:
+    paths:
+      - "lib/"
+      - "test/unit/"
+  integration:
+    paths:
+      - "integration_test/"
+    carryforward: true

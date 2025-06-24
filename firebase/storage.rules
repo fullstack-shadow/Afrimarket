@@ -1,0 +1,151 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ==================== GLOBAL RULES ====================
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+    
+    function isSeller() {
+      return isSignedIn() && request.auth.token.seller == true;
+    }
+    
+    function isUser(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+    
+    function getRole() {
+      return request.auth.token.role;
+    }
+    
+    function isValidEmail() {
+      return request.auth.token.email.matches('^[^@]+@[^@]+\\.[^@]+$');
+    }
+    
+    // ==================== USERS COLLECTION ====================
+    match /users/{userId} {
+      allow read: if isSignedIn();
+      allow create: if isUser(userId) && 
+                   request.resource.data.keys().hasAll(['email', 'displayName']) &&
+                   request.resource.data.email == request.auth.token.email;
+      
+      allow update: if isUser(userId) && 
+                    request.resource.data.email == resource.data.email && // Email immutable
+                    request.resource.data.keys().hasAll(['displayName', 'lastUpdated']);
+      
+      allow delete: if isAdmin();
+    }
+    
+    // ==================== PRODUCTS COLLECTION ====================
+    match /products/{productId} {
+      allow read: if true; // Public read access
+      allow create: if isSeller() && 
+                   request.resource.data.keys().hasAll([
+                     'name', 'price', 'description', 
+                     'sellerId', 'createdAt'
+                   ]) &&
+                   request.resource.data.sellerId == request.auth.uid &&
+                   request.resource.data.price > 0;
+      
+      allow update: if isSeller() && 
+                    resource.data.sellerId == request.auth.uid &&
+                    request.resource.data.sellerId == resource.data.sellerId && // Immutable
+                    request.resource.data.price > 0;
+      
+      allow delete: if isSeller() && 
+                   resource.data.sellerId == request.auth.uid ||
+                   isAdmin();
+    }
+    
+    // ==================== SHOPS COLLECTION ====================
+    match /shops/{shopId} {
+      allow read: if true; // Public read access
+      allow create: if isSeller() && 
+                   request.resource.data.keys().hasAll([
+                     'name', 'ownerId', 'createdAt'
+                   ]) &&
+                   request.resource.data.ownerId == request.auth.uid;
+      
+      allow update: if isSeller() && 
+                   resource.data.ownerId == request.auth.uid &&
+                   request.resource.data.ownerId == resource.data.ownerId; // Immutable
+      
+      allow delete: if isAdmin();
+    }
+    
+    match /shops/{shopId}/owners/{userId} {
+      allow read: if isSignedIn();
+      allow write: if isAdmin() || 
+                   (isSeller() && resource.data.ownerId == request.auth.uid);
+    }
+    
+    // ==================== ORDERS COLLECTION ====================
+    match /orders/{orderId} {
+      allow read: if isSignedIn() && 
+                  (resource.data.buyerId == request.auth.uid ||
+                   resource.data.sellerId == request.auth.uid ||
+                   isAdmin());
+      
+      allow create: if isSignedIn() && 
+                   request.resource.data.keys().hasAll([
+                     'buyerId', 'items', 'totalAmount', 
+                     'status', 'createdAt'
+                   ]) &&
+                   request.resource.data.buyerId == request.auth.uid &&
+                   request.resource.data.status == 'pending';
+      
+      allow update: if isSignedIn() && (
+                     (resource.data.buyerId == request.auth.uid && 
+                      request.resource.data.status == 'cancelled') ||
+                     (resource.data.sellerId == request.auth.uid && 
+                      request.resource.data.status in ['processing', 'shipped']) ||
+                     isAdmin()
+                   );
+    }
+    
+    // ==================== CHATS COLLECTION ====================
+    match /chats/{chatId} {
+      allow read, create: if isSignedIn() && 
+                          request.auth.uid in resource.data.participants;
+      
+      allow update: if isAdmin();
+    }
+    
+    match /chats/{chatId}/messages/{messageId} {
+      allow read: if isSignedIn() && 
+                   request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants;
+      
+      allow create: if isSignedIn() && 
+                    request.auth.uid in get(/databases/$(database)/documents/chats/$(chatId)).data.participants &&
+                    request.resource.data.keys().hasAll([
+                      'senderId', 'content', 'timestamp'
+                    ]) &&
+                    request.resource.data.senderId == request.auth.uid;
+    }
+    
+    // ==================== ADMIN-ONLY COLLECTIONS ====================
+    match /admin/{document=**} {
+      allow read, write: if isAdmin();
+    }
+    
+    // ==================== PAYMENT TRANSACTIONS ====================
+    match /transactions/{transactionId} {
+      allow read: if isSignedIn() && 
+                  (resource.data.userId == request.auth.uid || isAdmin());
+      
+      allow create: if isSignedIn() && 
+                   request.resource.data.keys().hasAll([
+                     'userId', 'amount', 'method', 
+                     'status', 'timestamp'
+                   ]) &&
+                   request.resource.data.userId == request.auth.uid &&
+                   request.resource.data.status == 'pending';
+      
+      allow update: if isAdmin(); // Only admins can update payment status
+    }
+  }
+}
