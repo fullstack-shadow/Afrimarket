@@ -1,57 +1,84 @@
-# AfriMarket - Social Commerce Platform
 
-![AfriMarket Logo](assets/images/logo.png)
+====
+# Afrimarket
+AFRIMARKET is a modern Flutter-based e-commerce platform designed for African markets. It connects buyers and sellers across the continent through a beautifully crafted, modular, and scalable app architecture.
+AFRIMARKET is a modern Flutter-based e-commerce platform designed for African markets. It connects buyers and sellers across the continent through a beautifully crafted, modular, and scalable app architecture.
 
-> Jumia meets WhatsApp for African sellers - A multi-channel social commerce platform
+🚀 Features
+🛍️ Multi-category product listings (fashion, beauty, digital, etc.)
 
-## Features
+🔐 Secure user authentication with login & signup
 
-🛒 **Shopfront Creation**
-- Seller product listings with rich media
-- Inventory management
-- Sales analytics dashboard
+💬 Real-time chat between buyers and sellers
 
-💬 **Real-time Chat**
-- Buyer-seller messaging
-- Product sharing in chat
-- Order negotiation
+💳 Integrated payments (e.g. M-Pesa, card, mobile money)
 
-💳 **Payment Integration**
-- M-Pesa mobile money
-- Flutterwave payments
-- Secure checkout flow
+🧾 Order tracking, history & referrals
 
-📱 **Multi-Platform**
-- Mobile apps (Android/iOS)
-- Web admin dashboard
-- Progressive Web App
+🔔 Push notifications
 
-## Tech Stack
+📊 Admin dashboard with user management & analytics
 
-**Frontend**
-- Flutter (Mobile + Web)
-- Riverpod State Management
-- Firebase Authentication
+📦 Mock data & test coverage included
 
-**Backend**
-- Cloud Firestore
-- Firebase Functions
-- Firebase Storage
+🌐 Internationalization support via .arb files
 
-**DevOps**
-- GitHub Actions CI/CD
-- Codecov integration
-- Firebase Hosting
+📸 Cloud storage for images & media
 
-## Getting Started
+🧪 Widget, integration, and unit tests
 
-### Prerequisites
-- Flutter 3.13.0+
-- Dart 3.0.0+
-- Firebase CLI
+🧱 Tech Stack
+Flutter + Dart
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-repo/afrimarket.git
-   cd afrimarket
+Firebase (Auth, Firestore, Cloud Storage)
+
+Riverpod / BLoC (for state management)
+
+VS Code + WSL Dev Setup
+
+CI/CD via GitHub Actions
+
+Structured architecture: core, features, data, services, widgets
+
+🧪 Test Strategy
+Unit tests (test/unit/)
+
+Widget tests (test/widget/)
+
+Integration tests (test/integration/)
+
+Golden tests (test/golden/)
+
+Contract tests (test/contract/)
+
+📁 Folder Highlights
+lib/core/ → App-wide services (analytics, config, theming, etc.)
+
+lib/features/ → Feature-first modules (auth, chat, shop, etc.)
+
+lib/services/ → Shared service layer (API, auth, storage)
+
+test/ → Cleanly separated test types
+
+mock_data/ → Product & user mock JSON
+
+assets/ → Images, fonts, Lottie, language files
+
+scripts/ → Firebase setup, testing, coverage, docs
+
+.vscode/ → Workspace settings and launch configs
+
+📦 Getting Started
+bash
+Copy
+Edit
+git clone https://github.com/fullstack-shadow/afrimarket.git
+cd afrimarket
+flutter pub get
+flutter run
+🤝 Contributing
+Pull requests are welcome! Please read the CONTRIBUTING.md (coming soon) for guidelines.
+
+📝 License
+This project is licensed under the MIT License.
+>>>>>>> d7466ea1e788b7aee8d1880b7c172533766259c7
